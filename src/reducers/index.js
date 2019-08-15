@@ -20,12 +20,16 @@ const initialState = {
 export const carReducer = (state = initialState, action) => {
     switch (action.type) {
         case BUY_ITEM:
-            // const feature = state.store.find(feature => feature.id === action.payload);
-            return {
-                ...state,
-                car: {
-                    ...state.car,
-                    features: [...state.car.features, action.payload]
+            if (state.car.features.find(feature => feature.id === action.payload.id)) {
+                return state
+            } else {
+                return {
+                    ...state,
+                    car: {
+                        ...state.car,
+                        price: state.car.price + action.payload.price,
+                        features: [...state.car.features, action.payload]
+                    }
                 }
             };
         case REMOVE_FEATURE:
@@ -33,7 +37,8 @@ export const carReducer = (state = initialState, action) => {
                 ...state,
                 car: {
                     ...state.car,
-                    features: state.car.features.filter(feature => feature.id !== action.payload)
+                    price: state.car.price - action.payload.price,
+                    features: state.car.features.filter(feature => feature.id !== action.payload.id)
                 }
             };
         default:

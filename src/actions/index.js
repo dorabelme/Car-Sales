@@ -11,11 +11,10 @@ export const buyItem = feature => {
     };
 };
 
-export const removeFeature = id => {
+export const removeFeature = feature => {
     return {
         type: REMOVE_FEATURE,
-        payload: id
+        payload: feature
     };
 };
-
 
